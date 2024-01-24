@@ -1,0 +1,19 @@
+parameters:
+    level: 8
+    fileExtensions:
+        - php
+    paths:
+        - src
+    excludePaths:
+        - src/Kernel.php
+    tmpDir: var/phpstan
+    phpat:
+        ignore_built_in_classes: false
+        show_rule_names: true
+
+
+services:
+    -
+        class: Tests\PHPat\ArchitectureTest
+        tags:
+            - phpat.test

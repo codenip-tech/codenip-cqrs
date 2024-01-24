@@ -16,7 +16,7 @@ This repository contains the basic configuration to run Symfony applications wit
 - `make ssh` to SSH into the application container
 
 ## Create and Run the application
-- [Optional] Replace all the occurrences of symfony-app in the whole project with some name more meaningful for your project
+- [Optional] Replace all the occurrences of codenip-cqrs in the whole project with some name more meaningful for your project
 - `make start` to build and start the containers (you can use your IDE find and replace option to do so)
 - SSH into the container with `make ssh`
 - Create a Symfony project using the CLI (e.g. `symfony new --no-git --dir project`). See `symfony`command info for more options
