@@ -1,10 +1,4 @@
-# Symfony Base Repository
-
-This repository contains the basic configuration to run Symfony applications with MySQL database
-
-## Content
-- PHP-APACHE container running version 8.2
-- MySQL container running version 8.2.0
+# Codenip CQRS
 
 ## Instructions
 - `make build` to build the containers
