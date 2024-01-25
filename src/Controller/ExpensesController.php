@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Messenger\Command\CreateExpenseCommand;
 use App\Service\ExpenseService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Uid\Uuid;
 
@@ -17,6 +19,7 @@ class ExpensesController extends AbstractController
 {
     public function __construct(
         private readonly ExpenseService $expenseService,
+        private readonly MessageBusInterface $bus,
     ) {}
 
     #[Route('/expenses', name: 'create_expense', methods: ['POST'])]
@@ -29,9 +32,13 @@ class ExpensesController extends AbstractController
         $description = $data['description'];
         $amount = $data['amount'];
 
-        $expense = $this->expenseService->create($expenseId, $description, $amount);
+        //        $expense = $this->expenseService->create($expenseId, $description, $amount);
 
-        return $this->json($expense->toArray(), Response::HTTP_CREATED);
+        $command = new CreateExpenseCommand($expenseId, $description, $amount);
+
+        $this->bus->dispatch($command);
+
+        return $this->json(['id' => $expenseId], Response::HTTP_ACCEPTED);
     }
 
     #[Route('/expenses/{id}', name: 'get_expense_by_id', methods: ['GET'])]
