@@ -7,8 +7,9 @@ namespace App\Entity;
 use App\Repository\ExpenseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Table(name: 'expense')]
 #[ORM\Entity(repositoryClass: ExpenseRepository::class)]
-class Expense
+class ExpenseWrite
 {
     #[ORM\Id]
     #[ORM\Column(type: 'string', length: 36)]

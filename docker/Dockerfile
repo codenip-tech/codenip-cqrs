@@ -13,14 +13,14 @@ RUN echo "alias sf=/appdata/www/bin/console" >> /home/appuser/.bashrc
 RUN apt update \
     # common libraries and extensions
     && apt install -y git acl openssl openssh-client wget zip \
-    && apt install -y libpng-dev zlib1g-dev libzip-dev libxml2-dev libicu-dev \
+    && apt install -y libpng-dev zlib1g-dev libzip-dev libxml2-dev libicu-dev librabbitmq-dev \
     && docker-php-ext-install intl pdo zip \
     # for MySQL
     && docker-php-ext-install pdo_mysql \
     # XDEBUG and APCu
-    && pecl install xdebug apcu \
+    && pecl install xdebug apcu amqp mongodb \
     # enable Docker extensions
-    && docker-php-ext-enable --ini-name 05-opcache.ini opcache xdebug apcu
+    && docker-php-ext-enable --ini-name 05-opcache.ini opcache xdebug apcu amqp mongodb
 
 # Install and update composer
 RUN curl https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer

@@ -38,6 +38,28 @@ services:
       - codenip-cqrs-network
     command: [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
 
+  codenip-cqrs-mongo:
+    container_name: codenip-cqrs-mongo
+    image: mongo:7.0.0
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: expenses
+    ports:
+      - '27077:27017'
+    networks:
+      - codenip-cqrs-network
+
+  codenip-cqrs-rabbitmq:
+    container_name: codenip-cqrs-rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - codenip-cqrs-network
+
 networks:
   codenip-cqrs-network:
 
