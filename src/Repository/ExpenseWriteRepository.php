@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ExpenseWrite[]    findAll()
  * @method ExpenseWrite[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ExpenseRepository extends ServiceEntityRepository
+class ExpenseWriteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

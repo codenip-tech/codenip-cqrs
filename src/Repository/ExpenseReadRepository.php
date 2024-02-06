@@ -2,25 +2,43 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\App\Document;
+namespace App\Repository;
 
-use App\Entity\App\Document\ExpenseRead;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Document\ExpenseRead;
+use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
+use Doctrine\Bundle\MongoDBBundle\Repository\ServiceDocumentRepository;
+use Doctrine\ODM\MongoDB\MongoDBException;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 
 /**
- * @extends ServiceEntityRepository<ExpenseRead>
+ * @extends ServiceDocumentRepository<ExpenseRead>
  *
  * @method ExpenseRead|null find($id, $lockMode = null, $lockVersion = null)
  * @method ExpenseRead|null findOneBy(array $criteria, array $orderBy = null)
  * @method ExpenseRead[]    findAll()
  * @method ExpenseRead[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ExpenseReadRepository extends ServiceEntityRepository
+class ExpenseReadRepository extends ServiceDocumentRepository
 {
+    private readonly DocumentRepository $documentRepository;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ExpenseRead::class);
+    }
+
+    public function findOneById(string $id): ?ExpenseRead
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * @throws MongoDBException
+     */
+    public function save(ExpenseRead $expenseRead): void
+    {
+        $this->getDocumentManager()->persist($expenseRead);
+        $this->getDocumentManager()->flush();
     }
 
     //    /**

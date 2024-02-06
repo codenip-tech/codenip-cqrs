@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\ExpenseRepository;
+use App\Repository\ExpenseWriteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'expense')]
-#[ORM\Entity(repositoryClass: ExpenseRepository::class)]
+#[ORM\Entity(repositoryClass: ExpenseWriteRepository::class)]
 class ExpenseWrite
 {
     #[ORM\Id]

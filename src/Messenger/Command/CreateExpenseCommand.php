@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Messenger\Command;
 
-class CreateExpenseCommand
+readonly class CreateExpenseCommand
 {
     public function __construct(
-        public readonly string $id,
-        public readonly string $description,
-        public readonly int $amount,
+        public string $id,
+        public string $description,
+        public int $amount,
     ) {}
 }

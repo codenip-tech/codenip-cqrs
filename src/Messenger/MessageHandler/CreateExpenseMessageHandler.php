@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Messenger\MessageHandler;
 
 use App\Entity\ExpenseWrite;
+use App\Messenger\Event\ExpenseWasCreatedEvent;
 use App\Messenger\Message\CreateExpenseMessage;
-use App\Repository\ExpenseRepository;
+use App\Repository\ExpenseWriteRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -14,7 +15,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 class CreateExpenseMessageHandler
 {
     public function __construct(
-        private readonly ExpenseRepository $expenseRepository,
+        private readonly ExpenseWriteRepository $expenseRepository,
         private readonly MessageBusInterface $bus,
     ) {}
 
@@ -25,5 +26,8 @@ class CreateExpenseMessageHandler
         // persist in MySQL database
         $this->expenseRepository->save($expense);
         // domain event ExpenseWasCreated
+        $this->bus->dispatch(
+            new ExpenseWasCreatedEvent($message->id, $message->description, $message->amount),
+        );
     }
 }
