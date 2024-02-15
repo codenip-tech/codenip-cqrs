@@ -12,8 +12,8 @@ doctrine_mongodb:
             mappings:
                 App:
                     type: attribute
-                    dir: '%kernel.project_dir%/src/Document'
-                    prefix: 'App\Document'
+                    dir: '%kernel.project_dir%/src/Domain/Entity'
+                    prefix: 'App\Domain\Entity'
 
 when@prod:
     doctrine_mongodb:

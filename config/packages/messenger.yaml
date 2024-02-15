@@ -11,7 +11,7 @@ framework:
 
         routing:
             # Route your messages to the transports
-            'App\Messenger\Message\CreateExpenseMessage': async
+            'App\Application\Message\CreateExpenseMessage': async
 
 # when@test:
 #    framework:
