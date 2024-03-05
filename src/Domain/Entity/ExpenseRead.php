@@ -43,7 +43,7 @@ class ExpenseRead
     }
 
     /**
-     * @return array<string, string|int>
+     * @return array{id: string, description: string, amount: int}
      */
     public function toArray(): array
     {
